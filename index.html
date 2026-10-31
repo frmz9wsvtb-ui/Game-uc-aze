@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="az">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#090d18">
+<title>GAME UC AZE</title>
+<style>
+:root {
+  --site-primary: #f5b928;
+  --site-on-primary: #17120a;
+  --site-secondary: #17233a;
+  --site-on-secondary: #f5f7fc;
+  --site-background: #090d18;
+  --site-on-background: #f5f7fc;
+  --site-font-body: Inter, ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --site-font-heading: Inter, ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --site-heading-scale: 1;
+  --site-spacing-scale: 1;
+  --site-radius-scale: 1;
+  --site-decoration-opacity: 1;
+  color-scheme: light dark;
+}
+* { box-sizing: border-box; }
+body { margin: 0; font-family: var(--site-font-body); background: var(--site-background); color: var(--site-on-background); }
+#app { min-height: 100vh; width: 100%; background-color: var(--site-background); color: var(--site-on-background); }
+header { background: var(--site-secondary); color: var(--site-on-secondary); border-bottom: 1px solid #ffffff18; }
+.nav { max-width: 1080px; margin: auto; padding: calc(17px * var(--site-spacing-scale)) 20px; display:flex; align-items:center; justify-content:space-between; gap:14px; }
+.brand { display:flex; align-items:center; gap:10px; font-weight:900; letter-spacing:.4px; }
+.logo { width:40px;height:40px;border-radius:13px;background:var(--site-primary);color:var(--site-on-primary);display:grid;place-items:center;font-size:22px; }
+.nav-actions { display:flex; gap:8px; flex-wrap:wrap; }
+button, input, select { font: inherit; }
+button { border:0; cursor:pointer; border-radius: calc(12px * var(--site-radius-scale)); padding:11px 15px; font-weight:750; }
+.primary { background:var(--site-primary);color:var(--site-on-primary); }
+.secondary { background:#ffffff12;color:inherit;border:1px solid #ffffff20; }
+main { max-width:1080px;margin:auto;padding:28px 20px 60px; }
+.hero { background:linear-gradient(125deg,#1b2a47,#111a2c 65%,#29200e);border:1px solid #ffffff18;border-radius:22px;padding:clamp(24px,5vw,48px);position:relative;overflow:hidden; }
+.hero:after { content:"UC";position:absolute;right:5%;top:2%;font-size:clamp(100px,20vw,210px);font-weight:1000;color:#f5b92813;pointer-events:none; }
+.eyebrow { color:var(--site-primary);font-size:12px;font-weight:900;letter-spacing:2px;text-transform:uppercase; }
+h1 { font-family:var(--site-font-heading);font-size:calc(clamp(32px,6vw,54px) * var(--site-heading-scale));line-height:1.03;margin:12px 0;max-width:620px; }
+.hero p { color:#c6cede;max-width:550px;line-height:1.6;margin-bottom:22px; }
+.section-head { display:flex;justify-content:space-between;align-items:end;gap:12px;margin:30px 0 16px; }
+h2 { font-size:calc(23px * var(--site-heading-scale));margin:0; }
+.muted { color:#aab4c7;font-size:13px; }
+.grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:15px; }
+.card { background:#121a2b;border:1px solid #ffffff16;border-radius:18px;padding:18px; }
+.product-icon { width:54px;height:54px;border-radius:16px;background:#f5b92818;display:grid;place-items:center;font-size:27px;margin-bottom:14px; }
+.product-card h3 { margin:0 0 5px;font-size:18px; }
+.price { font-size:23px;font-weight:900;color:var(--site-primary);margin:13px 0; }
+.stock-count { color:#9ee6b0;font-size:13px;font-weight:800;margin-top:-5px;margin-bottom:10px; }
+.tag { display:inline-block;padding:5px 9px;border-radius:99px;background:#ffffff10;color:#c9d2e2;font-size:11px;font-weight:800; }
+.notice { margin-top:16px;padding:14px;border-radius:14px;background:#f5b92812;border:1px solid #f5b92835;color:#e9d8a9;font-size:13px;line-height:1.5; }
+.two-col { display:grid;grid-template-columns:1fr 1fr;gap:15px;margin-top:22px; }
+label { display:block;font-size:13px;color:#bdc7d8;margin:12px 0 6px;font-weight:700; }
+input,select { width:100%;padding:12px 13px;border-radius:11px;border:1px solid #ffffff25;background:#0c1321;color:#f5f7fc;outline:none; }
+input:focus,select:focus { border-color:var(--site-primary); }
+.full { width:100%;margin-top:14px; }
+.balance { font-size:30px;font-weight:900;color:var(--site-primary);margin:8px 0; }
+.hidden { display:none !important; }
+footer {border-top:1px solid #ffffff18;padding:22px 20px;color:#8f9bb0;text-align:center;font-size:12px;}
+.modal-backdrop { position:fixed;inset:0;background:#000b;display:grid;place-items:center;padding:18px;z-index:10; }
+.modal { width:min(460px,100%);max-height:90vh;overflow:auto;background:#121a2b;border:1px solid #ffffff25;border-radius:20px;padding:22px;box-shadow:0 20px 80px #0009; }
+.modal h2 {margin-bottom:8px;}
+.close {float:right;background:#ffffff14;color:white;}
+.tabs {display:flex;gap:8px;margin:14px 0;}
+.tabs button {flex:1;}
+.status {font-size:12px;color:#c4cede;margin-top:10px;line-height:1.5;}
+.admin-only {border:1px solid #f5b92855;}
+@media(max-width:650px){.two-col{grid-template-columns:1fr}.nav{padding:13px 15px}main{padding:20px 15px 45px}.nav-actions button{padding:9px 11px;font-size:12px}}
+</style>
+</head>
+<body>
+<div id="app">
+<header><div class="nav">
+  <div class="brand"><div class="logo">👑</div><span>GAME UC AZE</span></div>
+  <div class="nav-actions">
+    <button class="secondary" onclick="openModal('loginModal')">Daxil ol</button>
+    <button class="primary" onclick="openModal('registerModal')">Qeydiyyat</button>
+  </div>
+</div></header>
+<main>
+<section class="hero">
+  <div class="eyebrow">Rəsmi oyun mağazası</div>
+  <h1>Oyun dünyana güc qat!</h1>
+  <p>PUBG Mobile üçün təhlükəsiz və rahat E-PIN sifarişi. Sifarişini seç, balansını artır və çekini göndər.</p>
+  <button class="primary" onclick="document.getElementById('catalog').scrollIntoView({behavior:'smooth'})">Məhsullara bax →</button>
+</section>
+
+<div id="accountPanel" class="card hidden" style="margin-top:18px">
+  <div class="muted">Şəxsi hesab</div><h2 id="welcome">Salam!</h2>
+  <div class="muted">Balansın</div><div class="balance" id="balanceView">0.00 AZN</div>
+  <button class="primary" onclick="openModal('depositModal')">+ Balans artır</button>
+  <button class="secondary" onclick="logout()">Çıxış</button>
+</div>
+
+<div class="section-head" id="catalog"><div><div class="eyebrow">PUBG MOBILE</div><h2>UC E-PIN paketləri</h2></div><span class="tag">E-PIN təhvili</span></div>
+<div class="grid" id="products"></div>
+<div class="notice">📌 Qeyd: Bu mağaza UC-ni oyun ID-si ilə deyil, E-PIN kodu formasında təqdim etmək üçün hazırlanıb. E-PIN yalnız admin stok əlavə etdikdən və sifariş təsdiqləndikdən sonra verilir.</div>
+
+<div class="two-col">
+  <section class="card"><h2>Balans artırma</h2><p class="muted">Birbank kartına ödəniş et, sonra çekin şəklini yüklə.</p><div class="notice"><b>Birbank</b><br>Kart: 4169 7388 8847 6409<br>Kart sahibi: Mirəhət Suleymanov</div><button class="primary full" onclick="openModal('depositModal')">Balans artır</button></section>
+  <section class="card"><h2>Sifarişlərim</h2><p class="muted">Sifariş statusunu və E-PIN təhvil məlumatını şəxsi kabinetində izlə.</p><button class="secondary full" onclick="showOrders()">Sifarişlərə bax</button></section>
+</div>
+<section id="ordersPanel" class="card hidden" style="margin-top:16px"><h2>Sifariş tarixçəsi</h2><div id="ordersList" class="status">Hələ sifariş yoxdur.</div></section>
+<section class="card admin-only hidden" id="adminPanel" style="margin-top:22px">
+  <div class="eyebrow">Yalnız administrator</div><h2>Admin paneli</h2>
+  <div class="two-col">
+    <div><h3>Balans təsdiqi</h3><div id="depositQueue" class="status">Gözləyən ödəniş yoxdur.</div></div>
+    <div><h3>E-PIN stok əlavə et</h3>
+      <label>Paket</label><select id="stockProduct"></select>
+      <label>E-PIN kodu</label><input id="pinCode" placeholder="Məs: XXXX-XXXX-XXXX">
+      <button class="primary full" onclick="addPin()">Stoka əlavə et</button>
+      <div id="stockMessage" class="status"></div>
+    </div>
+  </div>
+  <h3 style="margin-top:22px">Sifarişlər</h3><div id="adminOrders" class="status">Sifariş yoxdur.</div>
+  <button class="secondary full" onclick="exportData()">Məlumatları yüklə (JSON)</button>
+  <div class="notice">Admin giriş məlumatlarını yayımlama. Bu demo versiyada məlumatlar yalnız bu brauzerin yaddaşında saxlanılır. Real satış üçün server, təhlükəsiz giriş və ödəniş təsdiqi inteqrasiyası lazımdır.</div>
+</section>
+</main>
+<footer>© 2026 GAME UC AZE · Sürətli xidmət, sərfəli qiymətlər</footer>
+</div>
+
+<div class="modal-backdrop hidden" id="loginModal"><div class="modal"><button class="close" onclick="closeModal('loginModal')">✕</button><h2>Hesaba daxil ol</h2><label>E-poçt</label><input id="loginEmail" type="email" placeholder="email@example.com"><label>Şifrə</label><input id="loginPass" type="password" placeholder="Şifrəniz"><button class="primary full" onclick="login()">Daxil ol</button><p class="status" id="loginMsg"></p></div></div>
+<div class="modal-backdrop hidden" id="registerModal"><div class="modal"><button class="close" onclick="closeModal('registerModal')">✕</button><h2>Qeydiyyat</h2><label>Ad</label><input id="regName" placeholder="Adınız"><label>E-poçt</label><input id="regEmail" type="email" placeholder="email@example.com"><label>Şifrə</label><input id="regPass" type="password" placeholder="Ən azı 6 simvol"><button class="primary full" onclick="register()">Hesab yarat</button><p class="status" id="regMsg"></p></div></div>
+<div class="modal-backdrop hidden" id="depositModal"><div class="modal"><button class="close" onclick="closeModal('depositModal')">✕</button><h2>Balans artırma sorğusu</h2><p class="status">Kart məlumatını və ödəniş qaydasını öz admin məlumatlarınla əvəz etməlisən.</p><label>Məbləğ (AZN)</label><input id="depositAmount" type="number" min="0.1" step="0.1" placeholder="Məs: 10"><label>Ödəniş çeki / şəkil</label><input id="receipt" type="file" accept="image/*"><label>Qeyd</label><input id="depositNote" placeholder="Ödəniş edən şəxsin adı"><button class="primary full" onclick="submitDeposit()">Sorğu göndər</button><p class="status" id="depositMsg"></p></div></div>
+<div class="modal-backdrop hidden" id="buyModal"><div class="modal"><button class="close" onclick="closeModal('buyModal')">✕</button><h2>E-PIN sifarişi</h2><div id="buyInfo" class="status"></div><label>Miqdar</label><input id="buyQty" type="number" min="1" value="1"><button class="primary full" onclick="buyProduct()">Balansla sifariş et</button><p class="status" id="buyMsg"></p></div></div>
+
+<script>
+const initialProducts = [
+ {id:"p60",name:"60 UC E-PIN",price:1.50},
+ {id:"p325",name:"325 UC E-PIN",price:7.50},
+ {id:"p660",name:"660 UC E-PIN",price:13.50},
+ {id:"p1800",name:"1800 UC E-PIN",price:35.00},
+ {id:"p3850",name:"3850 UC E-PIN",price:70.00},
+ {id:"p8100",name:"8100 UC E-PIN",price:132.00}
+];
+let data = JSON.parse(localStorage.getItem("gameuc_data") || "null") || {users:[],orders:[],deposits:[],pins:{},current:null};
+let selectedProduct = null;
+function save(){localStorage.setItem("gameuc_data",JSON.stringify(data));}
+function money(n){return Number(n).toFixed(2)+" AZN";}
+function currentUser(){return data.users.find(u=>u.email===data.current);}
+function openModal(id){document.getElementById(id).classList.remove("hidden");}
+function closeModal(id){document.getElementById(id).classList.add("hidden");}
+function renderProducts(){
+ const root=document.getElementById("products");
+ root.innerHTML=initialProducts.map(p=>`<article class="card product-card"><div class="product-icon">💎</div><span class="tag">E-PIN KOD</span><h3>${p.name}</h3><div class="price">${money(p.price)}</div><div class="stock-count">Stokda: ${(data.pins[p.id]||[]).length} ədəd</div><button class="primary full" onclick="startBuy('${p.id}')">Sifariş et</button></article>`).join("");
+ document.getElementById("stockProduct").innerHTML=initialProducts.map(p=>`<option value="${p.id}">${p.name}</option>`).join("");
+}
+function register(){
+ const name=document.getElementById("regName").value.trim(),email=document.getElementById("regEmail").value.trim().toLowerCase(),pass=document.getElementById("regPass").value;
+ const msg=document.getElementById("regMsg");
+ if(!name||!email||pass.length<6){msg.textContent="Bütün xanaları doldur, şifrə ən azı 6 simvol olsun.";return;}
+ if(data.users.some(u=>u.email===email)){msg.textContent="Bu e-poçt artıq qeydiyyatdan keçib.";return;}
+ data.users.push({name,email,pass,balance:0});data.current=email;save();closeModal("registerModal");renderAccount();
+}
+function login(){
+ const email=document.getElementById("loginEmail").value.trim().toLowerCase(),pass=document.getElementById("loginPass").value;
+ const user=(email==="gameuc@gmail.com"&&pass==="gameuc") ? (data.users.find(u=>u.email===email) || (data.users.push({name:"Admin",email,pass,balance:0}),data.users[data.users.length-1])) : data.users.find(u=>u.email===email&&u.pass===pass);
+ if(!user){document.getElementById("loginMsg").textContent="E-poçt və ya şifrə yanlışdır.";return;}
+ data.current=email;save();closeModal("loginModal");renderAccount();
+}
+function logout(){data.current=null;save();renderAccount();}
+function renderAccount(){
+ const u=currentUser(),panel=document.getElementById("accountPanel");
+ panel.classList.toggle("hidden",!u);
+ document.querySelector("header .nav-actions").innerHTML=u?`<span class="muted" style="align-self:center">${u.name}</span><button class="secondary" onclick="logout()">Çıxış</button>`:`<button class="secondary" onclick="openModal('loginModal')">Daxil ol</button><button class="primary" onclick="openModal('registerModal')">Qeydiyyat</button>`;
+ if(u){document.getElementById("welcome").textContent="Salam, "+u.name+"!";document.getElementById("balanceView").textContent=money(u.balance);}
+ const admin=u&&u.email==="gameuc@gmail.com";
+ document.getElementById("adminPanel").classList.toggle("hidden",!admin);
+ if(admin)renderAdmin();
+}
+function startBuy(id){if(!currentUser()){openModal("loginModal");return;}selectedProduct=initialProducts.find(p=>p.id===id);document.getElementById("buyInfo").textContent=selectedProduct.name+" · "+money(selectedProduct.price)+" / ədəd";document.getElementById("buyQty").value=1;document.getElementById("buyMsg").textContent="";openModal("buyModal");}
+function buyProduct(){
+ const u=currentUser(),qty=Math.floor(Number(document.getElementById("buyQty").value)),msg=document.getElementById("buyMsg");
+ if(!u||!selectedProduct||qty<1){msg.textContent="Miqdarı düzgün daxil et.";return;}
+ const total=selectedProduct.price*qty,pins=data.pins[selectedProduct.id]||[];
+ if(pins.length<qty){msg.textContent="Bu paket üzrə E-PIN stokda kifayət etmir.";return;}
+ if(u.balance<total){msg.textContent="Balansın kifayət etmir. Əvvəl balansını artır.";return;}
+ const delivered=pins.splice(0,qty);u.balance-=total;
+ data.orders.push({id:Date.now(),email:u.email,product:selectedProduct.name,qty,total,status:"Təhvil verildi",pins:delivered});
+ data.pins[selectedProduct.id]=pins;save();renderAccount();renderAdmin();msg.textContent="Sifariş tamamlandı. E-PIN: "+delivered.join(" | ");
+}
+function submitDeposit(){
+ const u=currentUser(),amount=Number(document.getElementById("depositAmount").value),file=document.getElementById("receipt").files[0],msg=document.getElementById("depositMsg");
+ if(!u){msg.textContent="Əvvəl hesaba daxil ol.";return;}
+ if(!(amount>0)||!file){msg.textContent="Məbləğ və çek şəkli mütləqdir.";return;}
+ if(file.size>900000){msg.textContent="Şəkil 900 KB-dan kiçik olmalıdır.";return;}
+ const reader=new FileReader();
+ reader.onload=()=>{data.deposits.push({id:Date.now(),email:u.email,amount,note:document.getElementById("depositNote").value,receipt:reader.result,status:"Gözləyir"});save();msg.textContent="Sorğu qeydə alındı. Admin təsdiqindən sonra balansına əlavə ediləcək.";renderAdmin();};
+ reader.readAsDataURL(file);
+}
+function addPin(){
+ const id=document.getElementById("stockProduct").value,code=document.getElementById("pinCode").value.trim(),msg=document.getElementById("stockMessage");
+ if(!code){msg.textContent="E-PIN kodunu daxil et.";return;}
+ data.pins[id]=data.pins[id]||[];data.pins[id].push(code);document.getElementById("pinCode").value="";save();msg.textContent="E-PIN stoka əlavə edildi.";renderAdmin();
+}
+function renderAdmin(){
+ const q=document.getElementById("depositQueue"),o=document.getElementById("adminOrders");
+ q.innerHTML=data.deposits.length?data.deposits.map(d=>`<div class="card" style="margin:8px 0"><b>${d.email}</b> · ${money(d.amount)}<div class="status">${d.status} ${d.note||""}</div><img src="${d.receipt}" alt="Çek" style="max-width:100%;max-height:110px;border-radius:8px;margin-top:8px"><button class="primary full" onclick="approveDeposit(${d.id})">Təsdiqlə və balans artır</button></div>`).join(""):"Gözləyən ödəniş yoxdur.";
+ o.innerHTML=data.orders.length?data.orders.map(x=>`<div class="card" style="margin:8px 0">${x.email} · ${x.product} × ${x.qty} · ${money(x.total)}<div class="status">${x.status}</div></div>`).join(""):"Sifariş yoxdur.";
+}
+function approveDeposit(id){
+ const d=data.deposits.find(x=>x.id===id);if(!d||d.status!=="Gözləyir")return;
+ const u=data.users.find(x=>x.email===d.email);if(!u)return;
+ u.balance+=d.amount;d.status="Təsdiqləndi";save();renderAccount();renderAdmin();
+}
+function showOrders(){
+ const u=currentUser();if(!u){openModal("loginModal");return;}
+ const panel=document.getElementById("ordersPanel");panel.classList.remove("hidden");
+ const list=data.orders.filter(x=>x.email===u.email);
+ document.getElementById("ordersList").innerHTML=list.length?list.map(x=>`<div class="card" style="margin:8px 0"><b>${x.product} × ${x.qty}</b><div>${money(x.total)} · ${x.status}</div><div class="status">E-PIN: ${x.pins.join(" | ")}</div></div>`).join(""):"Hələ sifariş yoxdur.";
+}
+function exportData(){
+ const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="game-uc-aze-backup.json";a.click();URL.revokeObjectURL(url);
+}
+renderProducts();renderAccount();
+</script>
+</body>
+</html>
