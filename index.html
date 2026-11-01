@@ -197,7 +197,7 @@ function addPin(){
 }
 function renderAdmin(){
  const q=document.getElementById("depositQueue"),o=document.getElementById("adminOrders");
- q.innerHTML=data.deposits.length?data.deposits.map(d=>`<div class="card" style="margin:8px 0"><b>${d.email}</b> · ${money(d.amount)}<div class="status">${d.status} ${d.note||""}</div><img src="${d.receipt}" alt="Çek" style="max-width:100%;max-height:110px;border-radius:8px;margin-top:8px"><button class="primary full" onclick="approveDeposit(${d.id})">Təsdiqlə və balans artır</button></div>`).join(""):"Gözləyən ödəniş yoxdur.";
+ q.innerHTML=data.deposits.length?data.deposits.map(d=>`<div class="card" style="margin:8px 0"><b>${d.email}</b> · ${money(d.amount)}<div class="status">${d.status} ${d.note||""}</div><img src="${d.receipt}" alt="Çek" style="max-width:100%;max-height:110px;border-radius:8px;margin-top:8px"><button class="primary full" onclick="approveDeposit(${d.id})">Təsdiqlə və balans artır</button><button class="secondary full" onclick="cancelDeposit(${d.id})">Ləğv et</button>/div>`).join(""):"Gözləyən ödəniş yoxdur.";
  o.innerHTML=data.orders.length?data.orders.map(x=>`<div class="card" style="margin:8px 0">${x.email} · ${x.product} × ${x.qty} · ${money(x.total)}<div class="status">${x.status}</div></div>`).join(""):"Sifariş yoxdur.";
 }
 function approveDeposit(id){
